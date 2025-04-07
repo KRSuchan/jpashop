@@ -31,6 +31,7 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
+        // 무한 루프 -> Entity에 @JsonIgnore 적용 (@JsonIgnore는 유지보수 문제 있음)
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
         for (Order order : all) {
             order.getMember().getName(); // Lazy -> 강제 초기화
@@ -41,6 +42,7 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2() {
+        // ok
         // ORDER 2개
         // N + 1 => 1 + (회원 N + 배송 N)
         return orderRepository.findAllByString(new OrderSearch()).stream()
@@ -50,12 +52,14 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/v3/simple-orders")
     public List<SimpleOrderDto> ordersV3() {
+        // ok
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
         return orders.stream().map(SimpleOrderDto::new).toList();
     }
 
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> ordersV4() {
+        // ok
         return orderSimpleQueryRepository.findOrderDtos();
     }
 
@@ -68,7 +72,7 @@ public class OrderSimpleApiController {
         private Address address;
 
         public SimpleOrderDto(Order order) {
-            this.orderId = order.getId();
+            this.orderId = order.getOrderId();
             this.name = order.getMember().getName();
             this.orderDate = order.getOrderDate();
             this.orderStatus = order.getStatus();

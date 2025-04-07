@@ -19,11 +19,13 @@ public class MemberApiController {
 
     @GetMapping("/api/v1/members")
     public List<Member> membersV1() {
+        // ok
         return memberService.findMembers();
     }
 
     @GetMapping("/api/v2/members")
     public Result membersV2() {
+        // ok
         List<Member> findMembers = memberService.findMembers();
         List<MemberDto> collect = findMembers.stream()
                 .map(m -> new MemberDto(m.getName()))
@@ -33,13 +35,14 @@ public class MemberApiController {
 
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
+        // ok
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
 
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
-
+        // ok
         Member member = new Member();
         member.setName(request.name);
         Long id = memberService.join(member);
@@ -49,7 +52,7 @@ public class MemberApiController {
     @PutMapping("/api/v2/members/{id}")
     public UpdateMemberResponse updateMemberV2(@PathVariable("id") Long id,
                                                @RequestBody @Valid UpdateMemberRequest request) {
-
+        // ok
         memberService.update(id, request.getName());
         Member findMember = memberService.findOne(id);
         return new UpdateMemberResponse(findMember.getId(), findMember.getName());
