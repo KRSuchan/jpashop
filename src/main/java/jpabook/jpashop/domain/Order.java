@@ -20,7 +20,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Order {
     @Id
     @GeneratedValue
-    private Long orderId;
+    private Long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")

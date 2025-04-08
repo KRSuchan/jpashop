@@ -120,7 +120,7 @@ public class OrderApiController {
         private List<OrderItemDto> orderItems;
 
         public OrderDto(Order order) {
-            orderId = order.getOrderId();
+            orderId = order.getId();
             name = order.getMember().getName();
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();

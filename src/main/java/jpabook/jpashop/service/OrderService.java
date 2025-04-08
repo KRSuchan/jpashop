@@ -46,7 +46,7 @@ public class OrderService {
         // 주문 저장
         orderRepository.save(order);
 
-        return order.getOrderId();
+        return order.getId();
     }
 
     /**
@@ -62,7 +62,7 @@ public class OrderService {
 
     // 검색
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAllByString(orderSearch);
+        return orderRepository.findAll(orderSearch);
     }
 
 }

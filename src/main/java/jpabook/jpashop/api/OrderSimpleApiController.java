@@ -72,7 +72,7 @@ public class OrderSimpleApiController {
         private Address address;
 
         public SimpleOrderDto(Order order) {
-            this.orderId = order.getOrderId();
+            this.orderId = order.getId();
             this.name = order.getMember().getName();
             this.orderDate = order.getOrderDate();
             this.orderStatus = order.getStatus();
