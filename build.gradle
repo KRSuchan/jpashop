@@ -31,6 +31,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.10.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta'
+
+    //Querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
@@ -44,4 +48,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+clean {
+    delete file('src/main/generated')
 }
